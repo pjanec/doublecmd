@@ -1217,6 +1217,14 @@ begin
 {$IF DEFINED(DARWIN)}
   InitNSServiceProvider( @OnNSServiceOpenWithNewTab, @NSServiceMenuIsReady, @NSServiceMenuGetFilenames );
 {$ENDIF}
+  // PJ: execute the startup script
+  begin
+    if CommandLineParams.StartupScript[0] <> #0 then
+    begin
+      Commands.Commands.ExecuteCommand('cm_ExecuteScript', [CommandLineParams.StartupScript]);
+    end  
+  end;
+
 end;
 
 procedure TfrmMain.btnLeftClick(Sender: TObject);
