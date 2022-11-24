@@ -4148,7 +4148,13 @@ object frmMain: TfrmMain
     left = 704
     top = 152
   end
-  object imgLstActions: TImageList
+  object StartupTimer: TTimer
+    Interval = 200
+    OnTimer = StartupTimerTick
+    Left = 1086
+    Top = 258
+  end
+object imgLstActions: TImageList
     left = 64
     top = 224
   end

@@ -295,6 +295,7 @@ type
     pnlDskRight: TPanel;
     pnlDiskRightInner: TKASToolPanel;
     Timer: TTimer;
+    StartupTimer: TTimer;
     PanelAllProgress: TPanel;
     pbxRightDrive: TPaintBox;
     pbxLeftDrive: TPaintBox;
@@ -684,6 +685,7 @@ type
     procedure OnUniqueInstanceMessage(Sender: TObject; Params: TCommandLineParams);
     procedure tbPasteClick(Sender: TObject);
     procedure AllProgressOnUpdateTimer(Sender: TObject);
+    procedure StartupTimerTick(Sender: TObject);
 {$IF (DEFINED(LCLQT) or DEFINED(LCLQT5) or DEFINED(LCLQT6)) and not DEFINED(MSWINDOWS)}
   private
     QEventHook: QObject_hookH;
@@ -1217,14 +1219,6 @@ begin
 {$IF DEFINED(DARWIN)}
   InitNSServiceProvider( @OnNSServiceOpenWithNewTab, @NSServiceMenuIsReady, @NSServiceMenuGetFilenames );
 {$ENDIF}
-  // PJ: execute the startup script
-  begin
-    if CommandLineParams.StartupScript[0] <> #0 then
-    begin
-      Commands.Commands.ExecuteCommand('cm_ExecuteScript', [CommandLineParams.StartupScript]);
-    end  
-  end;
-
 end;
 
 procedure TfrmMain.btnLeftClick(Sender: TObject);
@@ -6760,6 +6754,22 @@ end;
 procedure TfrmMain.DriveListClose(Sender: TObject);
 begin
   SetActiveFrame(SelectedPanel);
+end;
+
+
+procedure TfrmMain.StartupTimerTick(Sender: TObject);
+begin
+  StartupTimer.Enabled := False;
+  //MsgBox('StartupTime', [msmbYes, msmbCancel], msmbCancel, msmbCancel);
+
+  // PJ: execute the startup script
+  begin
+    if CommandLineParams.StartupScript[0] <> #0 then
+    begin
+      Commands.Commands.ExecuteCommand('cm_ExecuteScript', [CommandLineParams.StartupScript]);
+    end  
+  end;
+
 end;
 
 procedure TfrmMain.AllProgressOnUpdateTimer(Sender: TObject);
