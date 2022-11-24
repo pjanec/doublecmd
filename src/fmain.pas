@@ -118,6 +118,7 @@ type
     actConfigSavePos: TAction;
     actConfigSaveSettings: TAction;
     actExecuteScript: TAction;
+    actExecuteCmdLine: TAction;
     actFocusSwap: TAction;
     actConfigArchivers: TAction;
     actConfigTooltips: TAction;
@@ -810,6 +811,7 @@ type
     Function GetFileDlgStr(sLngOne, sLngMulti : String; Files: TFiles):String;
     procedure HotDirSelected(Sender:TObject);
     procedure HotDirActualSwitchToDir(Index:longint);
+    function ExecuteCmdLine(sCmd: String; bRunInTerm: Boolean): Boolean;
     procedure HistorySelected(Sender:TObject);
     procedure ViewHistorySelected(Sender:TObject);
     procedure ViewHistoryPrevSelected(Sender:TObject);
@@ -6594,6 +6596,11 @@ begin
   // edtCommandExit is not always called when losing focus
   edtCommandExit(Self);
 {$ENDIF}
+end;
+
+function TfrmMain.ExecuteCmdLine( sCmd: String; bRunInTerm: Boolean): Boolean;
+begin
+  ExecuteCmdLine := ExecuteCommandFromEdit(sCmd, bRunInTerm);
 end;
 
 procedure TfrmMain.UpdatePrompt;

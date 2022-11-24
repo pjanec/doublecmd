@@ -2791,6 +2791,12 @@ object frmMain: TfrmMain
       Caption = 'Execute Script'
       OnExecute = actExecute
     end
+    object actExecuteCmdLine: TAction
+      Tag = 7
+      Category = 'Miscellaneous'
+      Caption = 'Execute command as if typed to DCs cmd Line'
+      OnExecute = actExecute
+    end
     object actFocusSwap: TAction
       Tag = 14
       Category = 'Navigation'

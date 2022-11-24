@@ -363,6 +363,7 @@ type
    procedure cm_ConfigSearches(const {%H-}Params: array of string);
    procedure cm_ConfigHotKeys(const {%H-}Params: array of string);
    procedure cm_ExecuteScript(const {%H-}Params: array of string);
+   procedure cm_ExecuteCmdLine(const {%H-}Params: array of string);
    procedure cm_FocusSwap(const {%H-}Params: array of string);
    procedure cm_Benchmark(const {%H-}Params: array of string);
    procedure cm_ConfigArchivers(const {%H-}Params: array of string);
@@ -5123,6 +5124,18 @@ begin
         if msgYesNo(sErrorMessage + #$0A + rsMsgWantToConfigureLibraryLocation) then
           cm_Options(['TfrmOptionsPluginsGroup']);
   end;
+end;
+
+procedure TMainCommands.cm_ExecuteCmdLine(const Params: array of string);
+var
+  FileName, sErrorMessage: String;
+  Index, Count: Integer;
+  Args: array of String;
+begin
+  if Length(Params) > 0 then
+  begin
+    frmMain.ExecuteCmdLine(Params[0], False);
+  end  
 end;
 
 procedure TMainCommands.cm_FocusSwap(const Params: array of string);
